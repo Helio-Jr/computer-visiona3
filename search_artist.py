@@ -12,7 +12,7 @@ dataset_path = "dados/"
 
 # Inicializando a biblioteca do TMDB
 tmdb = TMDb()
-tmdb.api_key = '2034dacd1d3dda0eeea92969115db83d'
+#tmdb.api_key = '2034dacd1d3dda0eeea92969115db83d'
 tmdb.language = 'pt-BR'
 
 # Função para prever o artista
@@ -43,7 +43,7 @@ st.write("Faça o upload de uma imagem para identificar o artista.")
 uploaded_file = st.file_uploader("Escolha uma imagem...", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
-    # Abrindo a imagem com o PIL
+    # Abrindo a imagem
     image = Image.open(uploaded_file)
     st.image(image, caption="Imagem carregada", use_container_width=True)
 
@@ -63,6 +63,13 @@ if uploaded_file is not None:
         artist_data = person.search(artist)[0]
 
         st.write("O nome do artista é:", artist)
+        st.write("Popularidade no site do TMDB:", artist_data['popularity'])
+        if artist_data['gender'] == 1:
+            st.write("Gênero: Feminino")
+        elif artist_data['gender'] == 2:
+            st.write("Gênero: Masculino")
+        else:
+            st.write("Gênero: Indefinido")
 
         # Obter a data de nascimento do artista e calcular a idade
         birth_date = getattr(artist_data, 'birthday', None)
@@ -73,6 +80,7 @@ if uploaded_file is not None:
         else:
             st.write("Idade não disponível.")
 
+        st.write(f"Três obras que {artist} participou:")
         for movie in artist_data["known_for"]:
             st.write(f"- {movie['title']}")
     else:
