@@ -12,7 +12,7 @@ dataset_path = "dados/"
 
 # Inicializando a biblioteca do TMDB
 tmdb = TMDb()
-#tmdb.api_key = '2034dacd1d3dda0eeea92969115db83d'
+tmdb.api_key = '2034dacd1d3dda0eeea92969115db83d'
 tmdb.language = 'pt-BR'
 
 # Função para prever o artista
